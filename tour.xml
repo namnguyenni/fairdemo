@@ -1,7 +1,6 @@
-﻿<krpano version="1.20.10" title="Hội trợ sâm Ngọc Linh">
+﻿<krpano version="1.19" title="Virtual Tour">
 
 	<include url="skin/vtourskin.xml" />
-	<!-- <include url="plugins/videospot_editor_31052017.xml" /> -->
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="false"
@@ -14,11 +13,11 @@
 	               webvr_gyro_keeplookingdirection="false"
 	               webvr_prev_next_hotspots="true"
 	               littleplanetintro="false"
-	               title="false"
+	               title="true"
 	               thumbs="true"
 	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
 	               thumbs_opened="false"
-	               thumbs_text="true"
+	               thumbs_text="false"
 	               thumbs_dragging="true"
 	               thumbs_onhoverscrolling="false"
 	               thumbs_scrollbuttons="false"
@@ -33,7 +32,7 @@
 	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
 	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
 	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
-	               loadingtext="Đang tải..."
+	               loadingtext="loading..."
 	               layout_width="100%"
 	               layout_maxwidth="814"
 	               controlbar_width="-24"
@@ -55,18 +54,28 @@
 	               design_text_shadow="1"
 	               />
 
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
 
-	<include url="skin/vtourskin_type1.xml" />
-	
-		<!-- startup action - load the first scene -->
+
+	<!-- startup action - load the first scene -->
 	<action name="startup" autorun="onstart">
 		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
 		loadscene(get(startscene), null, MERGE);
 		if(startactions !== null, startactions() );
 	</action>
-	<include url="plugins/circle_hotspots.xml"/>
 
-	<scene name="scene_BenNgoai" title="Cảnh bên ngoài" onstart="" thumburl="panos/BenNgoai.tiles/thumb.jpg" lat="" lng="" heading="">
+
+	
+	<scene name="scene_BenNgoai" title="BenNgoai" onstart="" thumburl="panos/BenNgoai.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
@@ -80,10 +89,10 @@
 				<cube url="panos/BenNgoai.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
 			</level>
 		</image>
-		<hotspot name="scene_Hoi_Truong_1" style="hs_circle" ath="3.527" atv="7.995" tag="Hội trường khu triển lãm" />
+
 	</scene>
 
-	<scene name="scene_Hoi_Truong_1" title="Hội trường khu triển lãm" onstart="" thumburl="panos/Hoi_Truong_1.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_Hoi_Truong_1" title="Hoi Truong 1" onstart="" thumburl="panos/Hoi_Truong_1.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
@@ -97,166 +106,76 @@
 				<cube url="panos/Hoi_Truong_1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
 			</level>
 		</image>
-		<hotspot style="hs_circle" ath="35.037" atv="0.263" name="scene_ren_noi_that_3_-_panorama" tag="Khu vực hội trợ"/>
-		<hotspot style="hs_circle" ath="178.564" atv="-10.284" name="scene_benngoai" tag="Khu vực bên ngoài"/>
+
 	</scene>
 
-	<scene name="scene_ren_noi_that_3_-_Panorama" title="Khu vực hội trợ - Cổng hội trợ" onstart="" thumburl="panos/ren_noi_that_3_-_Panorama.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_Khu_Hoi_Cho_1" title="Khu Hoi Cho 1" onstart="" thumburl="panos/Khu_Hoi_Cho_1.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/ren_noi_that_3_-_Panorama.tiles/preview.jpg" />
+		<preview url="panos/Khu_Hoi_Cho_1.tiles/preview.jpg" />
 
 		<image type="CUBE" multires="true" tilesize="512">
-			<level tiledimagewidth="2624" tiledimageheight="2624">
-				<cube url="panos/ren_noi_that_3_-_Panorama.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
-			</level>
 			<level tiledimagewidth="1280" tiledimageheight="1280">
-				<cube url="panos/ren_noi_that_3_-_Panorama.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+				<cube url="panos/Khu_Hoi_Cho_1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
 			</level>
 			<level tiledimagewidth="640" tiledimageheight="640">
-				<cube url="panos/ren_noi_that_3_-_Panorama.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+				<cube url="panos/Khu_Hoi_Cho_1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
 			</level>
 		</image>
-		<hotspot style="hs_circle" ath="0.523" atv="0.524" name="scene_ren_noi_that_2_-_panorama" tag="Khu vực hội trợ -  Trung tâm" />
-		<hotspot style="hs_circle" ath="48.755" atv="-5.620" name="scene_ren_noi_that_7_-_panorama" tag="Gian hàng hội trợ - Power town"/>
-		<hotspot style="hs_circle" ath="86.265" atv="-7.762" name="scene_ren_noi_that_6_-_panorama" tag="Gian hàng hội trợ"/>
-		<!-- <hotspot name="youtube_video1" style="skin_youtubespotstyle" ath="-115.361" atv="14.5" onclick="js(CallFancy('https://www.youtube.com/embed/i8eBBG46H8A'));"/> -->
-		<hotspot style="hs_circle" ath="-179.484" atv="9.962" name="scene_hoi_truong_1" tag="Hội trường khu triển lãm" />
 
 	</scene>
 
-	<scene name="scene_ren_noi_that_2_-_Panorama" title="Khu vực hội trợ - Trung tâm" onstart="" thumburl="panos/ren_noi_that_2_-_Panorama.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_Khu_Hoi_Cho_2" title="Khu Hoi Cho 2" onstart="" thumburl="panos/Khu_Hoi_Cho_2.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/ren_noi_that_2_-_Panorama.tiles/preview.jpg" />
+		<preview url="panos/Khu_Hoi_Cho_2.tiles/preview.jpg" />
 
 		<image type="CUBE" multires="true" tilesize="512">
-			<level tiledimagewidth="2624" tiledimageheight="2624">
-				<cube url="panos/ren_noi_that_2_-_Panorama.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
-			</level>
 			<level tiledimagewidth="1280" tiledimageheight="1280">
-				<cube url="panos/ren_noi_that_2_-_Panorama.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+				<cube url="panos/Khu_Hoi_Cho_2.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
 			</level>
 			<level tiledimagewidth="640" tiledimageheight="640">
-				<cube url="panos/ren_noi_that_2_-_Panorama.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+				<cube url="panos/Khu_Hoi_Cho_2.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
 			</level>
 		</image>
-		<hotspot style="hs_circle" ath="1.309" atv="-4.835" name="scene_ren_noi_that_1_-_panorama" tag="Khu vực hội trợ - Phía cuối hội trợ" />
-		<hotspot style="hs_circle" ath="40.517" atv="6.326" name="scene_ren_noi_that_6_-_panorama" tag="Gian hàng hội trợ - Gian hàng điện" />
-		<hotspot style="hs_circle" ath="70.615" atv="-6.025" name="scene_ren_noi_that_7_-_panorama" tag="Gian hàng hội trợ - Gian hàng xe" />
-		<hotspot style="hs_circle" ath="40.517" atv="6.326" name="scene_ren_noi_that_6_-_panorama" tag="Gian hàng hội trợ"/>
-		<hotspot style="hs_circle" ath="-31.120" atv="4.966" name="scene_ren_noi_that_4_-_panorama" tag="Gian hàng hội trợ"/>
-		<hotspot style="hs_circle" ath="176.300" atv="0.069" name="scene_ren_noi_that_3_-_panorama" tag="Khu vực hội trợ - Cửa hội trợ" />
 
-	
 	</scene>
 
-	<scene name="scene_ren_noi_that_1_-_Panorama" title="Khu hội trợ - Phía cuối hội trợ" onstart="" thumburl="panos/ren_noi_that_1_-_Panorama.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_Khu_Hoi_Cho_3" title="Khu Hoi Cho 3" onstart="" thumburl="panos/Khu_Hoi_Cho_3.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/ren_noi_that_1_-_Panorama.tiles/preview.jpg" />
+		<preview url="panos/Khu_Hoi_Cho_3.tiles/preview.jpg" />
 
 		<image type="CUBE" multires="true" tilesize="512">
-			<level tiledimagewidth="2624" tiledimageheight="2624">
-				<cube url="panos/ren_noi_that_1_-_Panorama.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
-			</level>
 			<level tiledimagewidth="1280" tiledimageheight="1280">
-				<cube url="panos/ren_noi_that_1_-_Panorama.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+				<cube url="panos/Khu_Hoi_Cho_3.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
 			</level>
 			<level tiledimagewidth="640" tiledimageheight="640">
-				<cube url="panos/ren_noi_that_1_-_Panorama.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+				<cube url="panos/Khu_Hoi_Cho_3.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
 			</level>
 		</image>
-		<hotspot style="hs_circle" ath="-82.652" atv="13.431" name="scene_ren_noi_that_4_-_panorama" tag="Gian hàng 1"/>
-		<hotspot style="hs_circle" ath="-41.243" atv="8.630" name="scene_ren_noi_that_6_-_panorama" />
-		<hotspot style="hs_circle" ath="90.869" atv="11.866" name="scene_ren_noi_that_6_-_panorama" />
-		<hotspot style="hs_circle" ath="52.323" atv="10.183" name="scene_ren_noi_that_7_-_panorama" />
-		<hotspot style="hs_circle" ath="177.371" atv="15.499" name="scene_ren_noi_that_2_-_panorama" />
 
-	
 	</scene>
 
-	<scene name="scene_ren_noi_that_4_-_Panorama" title="Gian hàng 1" onstart="" thumburl="panos/ren_noi_that_4_-_Panorama.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_Trien_Lam_1" title="Trien Lam 1" onstart="" thumburl="panos/Trien_Lam_1.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
-		<preview url="panos/ren_noi_that_4_-_Panorama.tiles/preview.jpg" />
+		<preview url="panos/Trien_Lam_1.tiles/preview.jpg" />
 
 		<image type="CUBE" multires="true" tilesize="512">
-			<level tiledimagewidth="2624" tiledimageheight="2624">
-				<cube url="panos/ren_noi_that_4_-_Panorama.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
-			</level>
 			<level tiledimagewidth="1280" tiledimageheight="1280">
-				<cube url="panos/ren_noi_that_4_-_Panorama.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+				<cube url="panos/Trien_Lam_1.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
 			</level>
 			<level tiledimagewidth="640" tiledimageheight="640">
-				<cube url="panos/ren_noi_that_4_-_Panorama.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+				<cube url="panos/Trien_Lam_1.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
 			</level>
 		</image>
-		<hotspot name="spot1" style="skin_youtubespotstyle" ath="-9.679" atv="11.396" onclick="js(CallFancy('https://www.youtube.com/embed/8q96WYt0wvw'));" />
-		<hotspot name="spot2" style="skin_youtubespotstyle" ath="-78.196" atv="-12.785" onclick="js(CallFancy('https://www.youtube.com/embed/R_mwYj49myc'));" />
-		<hotspot name="spot3" style="skin_youtubespotstyle" ath="-31.038" atv="-3.719" onclick="js(CallFancy('https://www.youtube.com/embed/aYdDPRFmMSw'));"/>
-		<hotspot name="spot4" style="skin_youtubespotstyle" ath="30.379" atv="-2.560"  onclick="js(CallFancy('https://www.youtube.com/embed/82oLdWW-JeA'));"/>
-		<hotspot name="spot5" style="skin_youtubespotstyle" ath="-152.003" atv="9.714" onclick="js(CallFancy('https://www.youtube.com/embed/xpW2ErV_RGM'));"/>
-		<hotspot style="hs_circle" ath="-109.525" atv="11.638" name="scene_ren_noi_that_2_-_panorama" tag="Khu vực hội trợ - Trung tâm"/>
-
-	
-	</scene>
-
-	<scene name="scene_ren_noi_that_6_-_Panorama" title="Gian hàng 2" onstart="" thumburl="panos/ren_noi_that_6_-_Panorama.tiles/thumb.jpg" lat="" lng="" heading="">
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/ren_noi_that_6_-_Panorama.tiles/preview.jpg" />
-
-		<image type="CUBE" multires="true" tilesize="512">
-			<level tiledimagewidth="2624" tiledimageheight="2624">
-				<cube url="panos/ren_noi_that_6_-_Panorama.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
-			</level>
-			<level tiledimagewidth="1280" tiledimageheight="1280">
-				<cube url="panos/ren_noi_that_6_-_Panorama.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
-			</level>
-			<level tiledimagewidth="640" tiledimageheight="640">
-				<cube url="panos/ren_noi_that_6_-_Panorama.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
-			</level>
-		</image>
-		<hotspot name="hs_video" loop="true" pausedonstart="false"
-	    onclick="togglepause();" url.html5="plugins/videoplayer.js" directionalsound="true"
-		 videourl="videos/Video_BigData.mp4" distorted="true" ath="-149.557" atv="-6.529" rx="-8.4" ry="8.8" rz="0.0" scale="0.324" alpha="1.0"/>
-		<hotspot style="hs_circle" ath="7.166" atv="4.445" name="scene_ren_noi_that_2_-_panorama" tag="Khu vực hội trợ - Trung tâm" />
-		<hotspot name="spot2" style="skin_youtubespotstyle" ath="163.664" atv="8.352" onclick="js(CallFancy('https://www.youtube.com/embed/aYdDPRFmMSw'));"/>
-	
-	</scene>
-
-	<scene name="scene_ren_noi_that_7_-_Panorama" title="Gian hàng 3" onstart="" thumburl="panos/ren_noi_that_7_-_Panorama.tiles/thumb.jpg" lat="" lng="" heading="">
-
-		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-
-		<preview url="panos/ren_noi_that_7_-_Panorama.tiles/preview.jpg" />
-
-		<image type="CUBE" multires="true" tilesize="512">
-			<level tiledimagewidth="2624" tiledimageheight="2624">
-				<cube url="panos/ren_noi_that_7_-_Panorama.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
-			</level>
-			<level tiledimagewidth="1280" tiledimageheight="1280">
-				<cube url="panos/ren_noi_that_7_-_Panorama.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
-			</level>
-			<level tiledimagewidth="640" tiledimageheight="640">
-				<cube url="panos/ren_noi_that_7_-_Panorama.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
-			</level>
-		</image>
-		<hotspot style="hs_circle" ath="-47.793" atv="15.306" name="scene_ren_noi_that_2_-_panorama" tag="Khu vực hội trợ - Trung tâm" />
-		<hotspot name="hs_video_7" loop="true" pausedonstart="false"
-	    onclick="togglepause();" url.html5="plugins/videoplayer.js" directionalsound="true"
-		 videourl="videos/Video_SamNgocLinh.mp4" distorted="true" ath="30.788" atv="-2.181" rx="-2.5" ry="-2.3" rz="0.0" scale="0.148" alpha="1.0"/>
-	
 
 	</scene>
 
-	
 
-	
 </krpano>

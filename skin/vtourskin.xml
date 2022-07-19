@@ -33,7 +33,7 @@
 	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
 	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
 	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
-	               loadingtext="Đang tải..."
+	               loadingtext="loading..."
 	               layout_width="100%"
 	               layout_maxwidth="814"
 	               controlbar_width="-24"
@@ -261,39 +261,10 @@
 	       linkedscene=""
 	       linkedscene_lookat=""
 	       onclick="skin_hotspotstyle_click();"
-	       onover="tween(scale,0.6);"
-	       onout="tween(scale,0.5);"
-	       onloaded="add_all_the_time_tooltip();if(linkedscene AND skin_settings.tooltips_hotspots, copy(tooltip,scene[get(linkedscene)].title); loadstyle(skin_tooltips); );"
-	       />
-
-	<style name="skin_bookspotstyle" url="vtourskin_bookspot.png" scale="0.5" edge="top" distorted="true"
-	       tooltip=""
-	       linkedscene=""
-	       linkedscene_lookat=""
-	       onclick="skin_hotspotstyle_click();"
 	       onover="tween(scale,0.55);"
-	       onout="tween(scale,0.5);"/>
-
-<action name="add_all_the_time_tooltip">
-    txtadd(tooltipname, 'tooltip_', get(name));
-    addplugin(get(tooltipname));
-    txtadd(plugin[get(tooltipname)].parent, 'hotspot[', get(name), ']');
-    set(plugin[get(tooltipname)].url,'%SWFPATH%/plugins/textfield.swf');
-    set(plugin[get(tooltipname)].align,top);
-    set(plugin[get(tooltipname)].edge,bottom);
-    set(plugin[get(tooltipname)].x,0);
-    set(plugin[get(tooltipname)].y,0);
-    set(plugin[get(tooltipname)].width,200);
-    set(plugin[get(tooltipname)].autoheight,true);
-    set(plugin[get(tooltipname)].background,false);
-    set(plugin[get(tooltipname)].border,false);
-    set(plugin[get(tooltipname)].css,'text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:16px;');
-    set(plugin[get(tooltipname)].textshadow,1);
-    set(plugin[get(tooltipname)].textshadowrange,6.0);
-    set(plugin[get(tooltipname)].textshadowangle,90);
-    copy(plugin[get(tooltipname)].html,scene[get(linkedscene)].title);
-    set(plugin[get(tooltipname)].enabled,false);
-</action>
+	       onout="tween(scale,0.5);"
+	       onloaded="if(linkedscene AND skin_settings.tooltips_hotspots, copy(tooltip,scene[get(linkedscene)].title); loadstyle(skin_tooltips); );"
+	       />
 
 	<action name="skin_hotspotstyle_click" scope="local">
 		if(caller.linkedscene,
@@ -331,10 +302,6 @@
 	       css="calc:skin_settings.design_text_css + ' text-align:center; font-size:16px;'"
 	       html=""
 	       />
-
-
-	<!-- Skin menu -->
-
 
 
 	<!-- skin layout -->
@@ -377,56 +344,27 @@
 
 		<layer name="skin_control_bar" type="container" align="bottom" width="get:skin_settings.controlbar_width" height="calc:skin_settings.controlbar_height" x="0" y="get:skin_settings.controlbar_offset" onloaded="skin_calc_opened_closed();" zorder="3">
 			<layer name="skin_control_bar_buttons" type="container" align="leftbottom" width="100%" height="get:skin_settings.controlbar_height">
-				<layer name="skin_btn_home"      style="skin_base|skin_glow" crop="0|192|64|64"   align="left"        x="50"    y="0"  scale="0.5" alpha="1"  onclick="skin_gotoscene(0);" />
+				<layer name="skin_btn_prev"      style="skin_base|skin_glow" crop="0|64|64|64"   align="left"        x="5"    y="0"  scale="0.5" alpha="0.5"  onclick="if(skin_settings.thumbs_loop, skin_nextscene_loop(-1), skin_nextscene(-1) );" />
 				<layer name="skin_btn_thumbs"    style="skin_base|skin_glow" crop="0|128|64|64"  align="left"        x="50"   y="0"  scale="0.5" ondown2="skin_showmap(false); skin_showthumbs();" />
 				<layer name="skin_btn_map"       style="skin_base|skin_glow" crop="64|128|64|64" align="left"        x="90"   y="0"  scale="0.5" ondown2="skin_showthumbs(false); skin_showmap();" visible="false" />
-				<layer name="skin_btn_gyro"      style="skin_base|skin_glow" crop="0|384|64|64"  align="left"      x="140" y="0"  scale="0.5" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false));" visible="false" devices="html5" />
-				<layer name="skin_btn_vr"        style="skin_base|skin_glow" crop="0|0|80|64"    align="right"      x="50" y="0"  scale="0.5" onclick="webvr.enterVR();" visible="true" />
-				<layer name="skin_btn_fs"        style="skin_base|skin_glow" crop="0|576|64|64"  align="right"       x="5"   y="0"  scale="0.5" onclick="switch(fullscreen); switch('crop',0|576|64|64,64|576|64|64)" devices="fullscreensupport" />
-				<layer name="skin_btn_sound"        style="skin_base|skin_glow" crop="0|704|64|64"  align="right"       x="100"   y="0"  scale="0.5" onclick="switch('crop', 0|704|64|64 ,64|704|64|64 )" />
+				<layer name="skin_btn_navi" type="container" align="center" x="0" width="240" height="32">
+					<layer name="skin_btn_left"  style="skin_base|skin_glow" crop="0|192|64|64"  align="center"      x="-100" y="0"  scale="0.5" ondown2="set(hlookat_moveforce,-1);" onup2="set(hlookat_moveforce,0);" />
+					<layer name="skin_btn_right" style="skin_base|skin_glow" crop="64|192|64|64" align="center"      x="-60"  y="0"  scale="0.5" ondown2="set(hlookat_moveforce,+1);" onup2="set(hlookat_moveforce,0);" />
+					<layer name="skin_btn_up"    style="skin_base|skin_glow" crop="0|256|64|64"  align="center"      x="-20"  y="0"  scale="0.5" ondown2="set(vlookat_moveforce,-1);" onup2="set(vlookat_moveforce,0);" />
+					<layer name="skin_btn_down"  style="skin_base|skin_glow" crop="64|256|64|64" align="center"      x="+20"  y="0"  scale="0.5" ondown2="set(vlookat_moveforce,+1);" onup2="set(vlookat_moveforce,0);" />
+					<layer name="skin_btn_in"    style="skin_base|skin_glow" crop="0|320|64|64"  align="center"      x="+60"  y="0"  scale="0.5" ondown2="set(fov_moveforce,-1);"     onup2="set(fov_moveforce,0);" />
+					<layer name="skin_btn_out"   style="skin_base|skin_glow" crop="64|320|64|64" align="center"      x="+100" y="0"  scale="0.5" ondown2="set(fov_moveforce,+1);"     onup2="set(fov_moveforce,0);" />
+				</layer>
+				<layer name="skin_btn_gyro"      style="skin_base|skin_glow" crop="0|384|64|64"  align="center"      x="+140" y="0"  scale="0.5" onclick="switch(plugin[skin_gyro].enabled); if(plugin[skin_gyro].enabled, skin_showmap(false));" visible="false" devices="html5" />
+				<layer name="skin_btn_vr"        style="skin_base|skin_glow" crop="0|0|80|64"    align="center"      x="+146" y="0"  scale="0.5" onclick="webvr.enterVR();" visible="false" />
+				<layer name="skin_btn_fs"        style="skin_base|skin_glow" crop="0|576|64|64"  align="right"       x="90"   y="0"  scale="0.5" onclick="switch(fullscreen);" devices="fullscreensupport" />
+				<layer name="skin_btn_hide"      style="skin_base|skin_glow" crop="0|448|64|64"  align="right"       x="50"   y="0"  scale="0.5" onclick="skin_hideskin()" />
+				<layer name="skin_btn_show" type="container" bgcapture="true" align="bottom" width="100%" height="get:skin_settings.controlbar_height" y="calc:skin_settings.controlbar_height - skin_settings.controlbar_offset_closed" onclick="skin_showskin()" onhover="tween(alpha,1.0);" onout="tween(alpha,0.25);" ondown.touch="onhover();" onup.touch="onout();" visible="false" capture="false" alpha="0.0">
+					<layer name="skin_btn_show_icon" style="skin_base" crop="64|448|64|64" scale="0.5" align="bottom" y="2" enabled="false" />
+				</layer>
+				<layer name="skin_btn_next"      style="skin_base|skin_glow" crop="64|64|64|64"  align="right"       x="5"    y="0"   scale="0.5" alpha="0.5"  onclick="if(skin_settings.thumbs_loop, skin_nextscene_loop(+1), skin_nextscene(+1) );" />
+				</layer>
 			</layer>
-		</layer>
-
-		<layer visible="true" name="skin_side_button" type="container" align="lefttop" x="20" y="10%" zorder="5">
-			<layer onclick=""  name="skin_button_bg" keep="true" type="image" style="skin_base" url="button_list.png" blendmode="normal" devices="normal" align="center" x="0" y="0" scale="0.15" alpha="1" />
-			<layer onclick="toggle_menu()" name="skin_side_icon" rotate="180"  style="skin_base" crop="0|768|64|50" align="center" x="0" y="0" scale="0.7" alpha="1" visible="true" enabled="true" />
-		</layer>
-
-		<layer visible="false" name="skin_menu" type="container" align="lefttop" x="-25%" y="0" zorder="4" width="25%" height="100%">
-			<layer name="skin_spiller_menu" type="container" align="left" width="100%" height="100%" y="0" onloaded="" zorder="3">
-				<layer name="skin_menu_bg" type="container" align="left" width="100%" height="100%" x="0" y="0" bgcolor="get:skin_settings.design_bg_menu_color" bgalpha="0.4" />
-			</layer>
-
-			<layer name="skin_menu_content" type="container" align="lefttop" x="0" y="0" zorder="4" width="100%" height="100%">
-				<layer name="skin_logo1" keep="true" type="image" style="skin_base" url="logo.png" blendmode="normal" devices="normal" align="top" x="0" y="50" scale="0.16" alpha="1" onclick="openCompanySite()"/>
-				<layer name="skin_logo2" keep="true" type="image" style="skin_base" url="logo.png" blendmode="normal" devices="mobile" align="center" x="0" y="-100" scale="0.16" alpha="1" />
-
-				<layer name="skin_menu_button_bg1" type="container" align="center" width="80%" height="10%" x="0" y="-12%" bgcolor="get:skin_settings.design_bg_btn_menu_color" bgalpha="1">
-					<layer name="skin_button_icon1" style="skin_base|skin_glow" crop="0|254|64|64" align="left" x="0" y="0" scale="1" alpha="1" onclick="skin_gotoscene(0);" />
-					<layer name="skin_button_name1" type="text" html="get:skin_settings.buttonMenuTxt1" align="center" x="0" y="0" scale="1" bgalpha="0" font-size="20px" css="text-align:center; color:0xffffff; font-family:Arial; font-weight:bold; font-size:20px;"/>
-				</layer>
-
-				<layer name="skin_menu_button_bg2" type="container" align="center" width="80%" height="10%" x="0" y="0" bgcolor="get:skin_settings.design_bg_btn_menu_color" bgalpha="1">
-					<layer name="skin_button_icon2" style="skin_base|skin_glow" crop="0|254|64|64" align="left" x="0" y="0" scale="1" alpha="1" onclick="skin_gotoscene(0);" />
-					<layer name="skin_button_name2" type="text" html="get:skin_settings.buttonMenuTxt2" align="center" x="0" y="0" scale="1" bgalpha="0" font-size="20px" css="text-align:center; color:0xffffff; font-family:Arial; font-weight:bold; font-size:20px;"/>
-				</layer>
-
-				<layer name="skin_menu_button_bg3" type="container" align="center" width="80%" height="10%" x="0" y="12%" bgcolor="get:skin_settings.design_bg_btn_menu_color" bgalpha="1">
-					<layer name="skin_button_icon3" style="skin_base|skin_glow" crop="0|254|64|64" align="left" x="0" y="0" scale="1" alpha="1" onclick="skin_gotoscene(0);" />
-					<layer name="skin_button_name3" type="text" html="get:skin_settings.buttonMenuTxt3" align="center" x="0" y="0" scale="1" bgalpha="0" font-size="20px" css="text-align:center; color:0xffffff; font-family:Arial; font-weight:bold; font-size:20px;"/>
-				</layer>
-
-				<layer name="skin_menu_button_bg4" type="container" align="center" width="80%" height="10%" x="0" y="24%" bgcolor="get:skin_settings.design_bg_btn_menu_color" bgalpha="1">
-					<layer name="skin_button_icon4" style="skin_base|skin_glow" crop="0|254|64|64" align="left" x="0" y="0" scale="1" alpha="1" onclick="skin_gotoscene(0);" />
-					<layer name="skin_button_name4" type="text" html="get:skin_settings.buttonMenuTxt4" align="center" x="0" y="0" scale="1" bgalpha="0" font-size="20px" css="text-align:center; color:0xffffff; font-family:Arial; font-weight:bold; font-size:20px;"/>
-				</layer>
-
-			
-			</layer>
-		</layer>
-
-
-
 
 		<layer name="skin_loadingtext" type="text" align="center" x="5" y="-5" html="get:skin_settings.loadingtext" visible="false" bg="false" enabled="false" css="calc:skin_settings.design_text_css + ' text-align:center; font-style:italic; font-size:22px;'" textshadow="get:skin_settings.design_text_shadow" />
 		<layer name="skin_buttonglow"  style="skin_base" crop="64|384|64|64" align="center" x="0" y="1" scale="1.0" alpha="0.0" visible="false" enabled="false" />
@@ -660,39 +598,60 @@
 		calc(show_gyrobutton, plugin[skin_gyro].available == true AND (view.vlookatrange == 180 OR lp_scene === xml.scene));
 		calc(show_vrbutton,   webvr.isavailable == true);
 		calc(show_fsbutton,   device.fullscreensupport == true);
-<!-- variable centerpos, leftpos, rightpos -->
+
 		set(lpos,6);
 		set(cpos,0);
+		if(show_gyrobutton, dec(cpos,20));
+		if(show_vrbutton OR plugin[webvr].mobilevr_fake_support == true, dec(cpos,24));
 		set(rpos,6);
-	<!-- set position for layer button -->
-	<!-- Home Button -->
-	inc(lpos,5);
-	copy(layer[skin_btn_home].x, lpos);
-	<!-- Thumbnail -->
-	if(show_thumbutton, inc(lpos,40));
-	copy(layer[skin_btn_thumbs].visible, show_thumbutton);
-	copy(layer[skin_btn_thumbs].x, lpos);
-	if(show_thumbutton, inc(lpos,40));
-	<!-- Map button -->
-	copy(layer[skin_btn_map].visible, show_mapbutton);
-	copy(layer[skin_btn_map].x, lpos);
-	if(show_mapbutton, inc(lpos,40));
-	
 
-	<!-- right button -->
-	copy(layer[skin_btn_fs].visible, show_fsbutton);
-	copy(layer[skin_btn_fs].x, 5);
-	if(show_fsbutton, inc(rpos,40));
+		calc(show_dirbuttons, !device.mobile AND ((area.pixelwidth + 2*cpos) GT 520) );
 
-	set(layer[skin_btn_gyro].align, right);
-	copy(layer[skin_btn_gyro].visible, show_gyrobutton);
-	copy(layer[skin_btn_gyro].x, rpos);
-	if(show_gyrobutton, inc(rpos,40));
+		copy(layer[skin_btn_navi].visible, show_dirbuttons);
 
-	set(layer[skin_btn_vr].align, right);
-	copy(layer[skin_btn_vr].visible, show_vrbutton);
-	copy(layer[skin_btn_vr].x, rpos);
-	if(show_vrbutton, inc(rpos,40));
+		copy(layer[skin_btn_prev].visible, show_selbuttons);
+		copy(layer[skin_btn_next].visible, show_selbuttons);
+		if(show_selbuttons, inc(lpos,44); inc(rpos,44); );
+
+		copy(layer[skin_btn_thumbs].visible, show_thumbutton);
+		copy(layer[skin_btn_thumbs].x, lpos);
+		if(show_thumbutton, inc(lpos,40));
+
+		copy(layer[skin_btn_map].visible, show_mapbutton);
+		copy(layer[skin_btn_map].x, lpos);
+		if(show_mapbutton, inc(lpos,40));
+
+		if(show_dirbuttons,
+			copy(layer[skin_btn_navi].x, cpos);
+			inc(cpos,140);
+
+			set(layer[skin_btn_gyro].align, center);
+			copy(layer[skin_btn_gyro].visible, show_gyrobutton);
+			copy(layer[skin_btn_gyro].x, cpos);
+			if(show_gyrobutton, inc(cpos,48));
+
+			set(layer[skin_btn_vr].align, center);
+			copy(layer[skin_btn_vr].visible, show_vrbutton);
+			copy(layer[skin_btn_vr].x, cpos);
+			if(show_vrbutton, inc(cpos,80));
+		  ,
+			set(layer[skin_btn_gyro].align, left);
+			copy(layer[skin_btn_gyro].visible, show_gyrobutton);
+			copy(layer[skin_btn_gyro].x, lpos);
+			if(show_gyrobutton, inc(lpos,40));
+
+			set(layer[skin_btn_vr].align, left);
+			copy(layer[skin_btn_vr].visible, show_vrbutton);
+			copy(layer[skin_btn_vr].x, lpos);
+			if(show_vrbutton, inc(lpos,80));
+		);
+
+		copy(layer[skin_btn_hide].x, rpos);
+		inc(rpos,40);
+
+		copy(layer[skin_btn_fs].visible, show_fsbutton);
+		copy(layer[skin_btn_fs].x, rpos);
+		if(show_fsbutton, inc(rpos,40));
 	</action>
 
 
@@ -810,21 +769,6 @@
 		);
 	</action>
 
-	<action name="toggle_menu" scope="local">
-		if(layer[skin_menu].visible 
-		, 
-		tween(layer[skin_menu].x ,-25%,1,default,set(layer[skin_menu].visible , false));
-		tween(layer[skin_side_icon].rotate , 180,1,default)
-		, 
-		set(layer[skin_menu].visible, true); 
-		tween(layer[skin_side_icon].rotate , 0,1,default);
-		tween(layer[skin_menu].x,0,1,default) );
-	</action>
-
-	<action name="openCompanySite" scope="local">
-		set(companysite, get(skin_settings.siteURL));
-		openurl(get(companysite),_blank);
-	</action>
 
 	<action name="skin_gotoscene" scope="local" args="newscene">
 		if(scene[get(newscene)],
@@ -1144,19 +1088,18 @@
 		);
 	</action>
 
-	<!-- context menu -	 -->
-	<contextmenu 
-	customstyle="Helvetica|16|default|0x22cfcfcf|0xFFFFFF|0x555555|1|0xFFFFFF|8|0|0|8|0x44000000|0|0|4|4|6|0x555555|none|4|0|0x00cfcfcf|0|3|0x00cfcfcf|0|0|12|12"
-	versioninfo="false" html="">
-		<item name="lg" caption="[img src='/skin/logo.png' style='max-width: 128px;;display: block;margin-left: auto;margin-right: auto;width: 50%;' /]"  visible="true" onclick="openCompanySite()"/>
-		<item name="kr" caption="[h2]Công ty công nghệ Viettech[/h2]"  visible="true" onclick="openCompanySite()"/>
-		<item name="cc" caption="Thay đổi chế độ view"  onclick="skin_changecontrolmode();"  separator="true" />
-		<item name="nv" caption="Normal View"     onclick="skin_view_normal();"        showif="view.vlookatrange == 180"   />
-		<item name="fv" caption="Fisheye View"     onclick="skin_view_fisheye();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
-		<item name="sv" caption="Stereographic View"  onclick="skin_view_stereographic();" showif="view.vlookatrange == 180" devices="flash|webgl" />
-		<item name="av" caption="Architectural View"  onclick="skin_view_architectural();" showif="view.vlookatrange == 180"                       />
-		<item name="pv" caption="Pannini View"  onclick="skin_view_pannini();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
-		<item name="lp" caption="Little Planet View"  onclick="skin_view_littleplanet();"  showif="view.vlookatrange == 180" devices="flash|webgl" />
+
+	<!-- context menu - http://krpano.com/docu/xml/#contextmenu -->
+	<contextmenu>
+		<item name="kr" caption="KRPANO"     />
+		<item name="fs" caption="FULLSCREEN" />
+		<item name="cc" caption="Change Controlmode" onclick="skin_changecontrolmode();"  separator="true" />
+		<item name="nv" caption="Normal View"        onclick="skin_view_normal();"        showif="view.vlookatrange == 180" separator="true"      />
+		<item name="fv" caption="Fisheye View"       onclick="skin_view_fisheye();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
+		<item name="sv" caption="Stereographic View" onclick="skin_view_stereographic();" showif="view.vlookatrange == 180" devices="flash|webgl" />
+		<item name="av" caption="Architectural View" onclick="skin_view_architectural();" showif="view.vlookatrange == 180"                       />
+		<item name="pv" caption="Pannini View"       onclick="skin_view_pannini();"       showif="view.vlookatrange == 180" devices="flash|webgl" />
+		<item name="lp" caption="Little Planet View" onclick="skin_view_littleplanet();"  showif="view.vlookatrange == 180" devices="flash|webgl" />
 	</contextmenu>
 
 
