@@ -1,2 +1,0 @@
-# fairdemo
-Hoi tro ao
